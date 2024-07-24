@@ -37,7 +37,7 @@ jobs:
 
       - name: Run selenium
         env:
-          USER: ${{ secrets.USER }}
+          USER: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           python selenium_login.py dfe-login
