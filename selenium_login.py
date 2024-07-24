@@ -10,10 +10,12 @@ import subprocess
 import yaml
 import platform
 import json
+import argparse
 
 
 def set_secret(name, value):
     if name == "_csrf":
+        os.environ["CSRF"] = value
         with open("secrets.yaml", "r") as secrets_yaml:
             secrets = secrets_yaml.read()
             secrets = secrets.replace("CSRF_VALUE", value)
@@ -21,6 +23,7 @@ def set_secret(name, value):
         with open("secrets.yaml", "w") as secrets_yaml:
             secrets_yaml.write(secrets)
     elif name == "session":
+        os.environ["SESSION"] = value
         with open("secrets.yaml", "r") as secrets_yaml:
             secrets = secrets_yaml.read()
             secrets = secrets.replace("SESSION_VALUE", value)
@@ -76,51 +79,68 @@ def get_spider_urls():
             output_urls.write(f"{url}\n")
 
 
-options = webdriver.FirefoxOptions()
-options.add_argument("-headless")
-driver = webdriver.Firefox(options=options)
+def run_nuclei():
+    nuclei = subprocess.run("nuclei -l urls.txt -sf secrets.yaml -json-export nuclei_output.json", shell=True)
 
 
-driver.get("https://pp-services.signin.education.gov.uk/")
-
-WebDriverWait(driver, 1000).until(EC.element_to_be_clickable((By.LINK_TEXT, "Start now"))).click()
-
-
-username = os.getenv("USER")
-password = os.getenv("PASSWORD")
-
-username_box = driver.find_element(By.ID, "username")
-username_box.send_keys(username)
-
-password_box = driver.find_element(By.ID, "password")
-password_box.send_keys(password)
-
-password_box.send_keys(Keys.ENTER)
+def dfe_login():
+    options = webdriver.FirefoxOptions()
+    options.add_argument("-headless")
+    driver = webdriver.Firefox(options=options)
 
 
-time.sleep(3)
-print(driver.title)
+    driver.get("https://pp-services.signin.education.gov.uk/")
+
+    WebDriverWait(driver, 1000).until(EC.element_to_be_clickable((By.LINK_TEXT, "Start now"))).click()
 
 
-if driver.title == "Access DfE services":
-    for cookie in driver.get_cookies():
-        print(f"Cookie Name: {cookie['name']}\nCookie Value: {cookie['value']}")
+    username = os.getenv("USER")
+    password = os.getenv("PASSWORD")
 
-        set_secret(cookie['name'], cookie['value'])
+    username_box = driver.find_element(By.ID, "username")
+    username_box.send_keys(username)
 
-    driver.quit()
-    
-    # Run the spider and nuclei from python if local - do in actions steps in github
-    if platform.system() == "Darwin":
+    password_box = driver.find_element(By.ID, "password")
+    password_box.send_keys(password)
+
+    password_box.send_keys(Keys.ENTER)
+
+
+    time.sleep(3)
+    print(driver.title)
+
+
+    if driver.title == "Access DfE services":
+        for cookie in driver.get_cookies():
+            print(f"Cookie Name: {cookie['name']}\nCookie Value: {cookie['value']}")
+
+            set_secret(cookie['name'], cookie['value'])
+
+        driver.quit()
+        
+        # Run the spider and nuclei from python if local - do in actions steps in github
+        if platform.system() == "Darwin":
+            run_gospider()
+            get_spider_urls()
+            run_nuclei()
+
+    else:
+        driver.quit()
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("command", help="Can be dfe-login, spider, or nuclei")
+
+    args = parser.parse_args()
+
+    if args.command == "dfe-login":
+        dfe_login()
+    elif args.command == "spider":
         run_gospider()
+    elif args.command == "nuclei":
         get_spider_urls()
-
-        nuclei = subprocess.run("nuclei -l urls.txt -sf secrets.yaml -json-export nuclei_output.json", shell=True)
-
-else:
-    driver.quit()
-
-
+        run_nuclei()
 
 
 
