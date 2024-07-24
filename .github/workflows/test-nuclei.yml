@@ -49,14 +49,14 @@ jobs:
       - name: Nuclei - Vulnerability Scan
         uses: projectdiscovery/nuclei-action@main
         with:
-          urls: urls.txt
-          flags: "-sf secrets.yaml"
-          sarif-export: "dfe_login.sarif"
+          urls: "${{ github.workspace }}/urls.txt"
+          flags: "-sf ${{ github.workspace }}/secrets.yaml"
+          sarif-export: "${{ github.workspace }}/dfe_login.sarif"
 
       - name: GitHub Security Dashboard Alerts update
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: dfe_login.sarif
+          sarif_file: "${{ github.workspace }}/dfe_login.sarif"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
