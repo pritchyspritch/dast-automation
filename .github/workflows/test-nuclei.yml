@@ -51,12 +51,13 @@ jobs:
         with:
           urls: "${{ github.workspace }}/urls.txt"
           flags: "-sf ${{ github.workspace }}/secrets.yaml"
-        #   sarif-export: "${{ github.workspace }}/dfe_login.sarif"
+          sarif-export: "${{ github.workspace }}/dfe_login.sarif"
+          nuclei-version: "3.2.9"
 
-    #   - name: GitHub Security Dashboard Alerts update
-    #     uses: github/codeql-action/upload-sarif@v3
-    #     with:
-    #       sarif_file: "${{ github.workspace }}/dfe_login.sarif"
-    #     env:
-    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: GitHub Security Dashboard Alerts update
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "${{ github.workspace }}/dfe_login.sarif"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
