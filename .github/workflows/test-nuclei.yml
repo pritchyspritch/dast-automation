@@ -52,7 +52,6 @@ jobs:
           urls: "${{ github.workspace }}/urls.txt"
           flags: "-sf ${{ github.workspace }}/secrets.yaml"
           sarif-export: "${{ github.workspace }}/dfe_login.sarif"
-          nuclei-version: "3.2.9"
 
       - name: GitHub Security Dashboard Alerts update
         uses: github/codeql-action/upload-sarif@v3
