@@ -138,8 +138,8 @@ if __name__ == '__main__':
         dfe_login()
     elif args.command == "spider":
         run_gospider()
-    elif args.command == "nuclei":
         get_spider_urls()
+    elif args.command == "nuclei":
         run_nuclei()
 
 
