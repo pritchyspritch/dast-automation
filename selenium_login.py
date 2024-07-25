@@ -112,7 +112,7 @@ def dfe_login():
 
     if driver.title == "Access DfE services":
         for cookie in driver.get_cookies():
-            print(f"Cookie Name: {cookie['name']}\nCookie Value: {cookie['value']}")
+            # print(f"Cookie Name: {cookie['name']}\nCookie Value: {cookie['value']}")
 
             set_secret(cookie['name'], cookie['value'])
 
