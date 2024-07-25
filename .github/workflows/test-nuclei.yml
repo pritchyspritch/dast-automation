@@ -56,11 +56,16 @@ jobs:
           urls: "${{ github.workspace }}/urls.txt"
           flags: "-sf ${{ github.workspace }}/secrets.yaml"
           sarif-export: "${{ github.workspace }}/dfe_login.sarif"
+      
+      - name: Upload sarif artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "nuclei_sarif"
+          path: "${{ github.workspace }}/dfe_login.sarif"
+          retention-days: 1
 
       - name: GitHub Security Dashboard Alerts update
         uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: "${{ github.workspace }}/dfe_login.sarif"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
