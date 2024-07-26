@@ -16,7 +16,7 @@ env:
         test_path: "https://pp-services.signin.education.gov.uk/my-services"
       verification:
         method: "poll"
-        loggedInRegex: ".*<title>\\s*Access DfE services\\s*<\/title>.*"
+        loggedInRegex: ".*Access DfE services.*"
         pollFrequency: 60
         pollUnits: "requests"
         pollUrl: "https://pp-services.signin.education.gov.uk/my-services"
