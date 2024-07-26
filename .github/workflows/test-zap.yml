@@ -1,6 +1,5 @@
 ---
-name: Test Nuclei
-
+name: Test Zap
 on:
   push:
     branches:
