@@ -54,14 +54,15 @@ jobs:
         uses: projectdiscovery/nuclei-action@main
         with:
           urls: "${{ github.workspace }}/urls.txt"
-          flags: "-sf ${{ github.workspace }}/secrets.yaml"
-          sarif-export: "${{ github.workspace }}/dfe_login.sarif"
+          flags: "-sf ${{ github.workspace }}/secrets.yaml -json-export nuclei_output.json"
+          # sarif-export: "${{ github.workspace }}/dfe_login.sarif"
       
       - name: Upload sarif artifact
         uses: actions/upload-artifact@v4
         with:
           name: "nuclei_sarif"
-          path: "${{ github.workspace }}/dfe_login.sarif"
+          # path: "${{ github.workspace }}/dfe_login.sarif"
+          path: "${{ github.workspace }}/*.json"
           retention-days: 1
 
       - name: GitHub Security Dashboard Alerts update
