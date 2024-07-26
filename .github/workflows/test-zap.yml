@@ -23,6 +23,7 @@ jobs:
         uses: zaproxy/action-af@v0.1.0
         with:
           plan: 'test-plan.yml'
+          cmd_options: '-addoninstall kotlin'
           docker_env_vars: |
             USER
             PASSWORD
