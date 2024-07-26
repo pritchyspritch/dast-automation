@@ -52,14 +52,14 @@ jobs:
 #     name: "httpsender.js"
 #     file: "/zap/wrk/scripts/httpsender.js"
 #     target: ""
-# - parameters:
-#     action: "add"
-#     type: "httpsender"
-#     engine: "Oracle Nashorn"
-#     name: "LogMessages.js"
-#     file: "/zap/wrk/LogMessages.js"
-#   name: "script"
-#   type: "script"
+- parameters:
+    action: "add"
+    type: "httpsender"
+    engine: "Oracle Nashorn"
+    name: "LogMessages.js"
+    file: "/zap/wrk/LogMessages.js"
+  name: "script"
+  type: "script"
 # - name: "script"
 #   type: "script"
 #   parameters:
