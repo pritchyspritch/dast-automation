@@ -22,6 +22,13 @@ def set_secret(name, value):
 
         with open("secrets.yaml", "w") as secrets_yaml:
             secrets_yaml.write(secrets)
+
+        with open("cookies.txt", "r") as cookies:
+            secrets = cookies.read()
+            secrets = secrets.replace("CSRF", value)
+
+        with open("cookies.txt", "w") as cookies:
+            cookies.write(secrets)
     elif name == "session":
         os.environ["SESSION"] = value
         with open("secrets.yaml", "r") as secrets_yaml:
@@ -30,6 +37,13 @@ def set_secret(name, value):
 
         with open("secrets.yaml", "w") as secrets_yaml:
             secrets_yaml.write(secrets)
+
+        with open("cookies.txt", "r") as cookies:
+            secrets = cookies.read()
+            secrets = secrets.replace("SESSION", value)
+
+        with open("cookies.txt", "w") as cookies:
+            cookies.write(secrets)
 
 
 def run_gospider():

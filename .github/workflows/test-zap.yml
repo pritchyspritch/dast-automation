@@ -1,0 +1,34 @@
+---
+name: Test Nuclei
+
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  scan:
+
+    permissions:
+      security-events: write
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+    
+      - name: ZAP Scan
+        uses: zaproxy/action-af@v0.1.0
+        with:
+          plan: 'test-plan.yml'
+          docker_env_vars: |
+            USER
+            PASSWORD
+        env:
+          USER: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+            

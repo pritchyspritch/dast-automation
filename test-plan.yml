@@ -1,0 +1,159 @@
+---
+env:
+  contexts:
+  - name: "selenium-auth"
+    urls:
+    - "https://pp-services.signin.education.gov.uk/"
+    includePaths:
+    - "https://pp-services.signin.education.gov.uk/.*"
+    excludePaths: []
+    authentication:
+      method: "script"
+      parameters:
+        script: "/zap/wrk/stackhawk_kotlin.kts"
+        cookie_file: "cookies.txt"
+        auth_script_file: "/zap/wrk/selenium_login.py"
+        test_path: "https://pp-services.signin.education.gov.uk/my-services"
+      verification:
+        method: "poll"
+        loggedInRegex: ".*<title>\s*Access DfE services\s*<\/title>.*"
+        pollFrequency: 60
+        pollUnits: "requests"
+        pollUrl: "https://pp-services.signin.education.gov.uk/my-services"
+        pollPostData: ""
+    sessionManagement:
+      method: "script"
+      parameters:
+        script: "/zap/wrk/session.js"
+        scriptEngine: "Oracle Nashorn"
+    technology:
+      exclude: []
+    users:
+    - name: "test"
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- name: "passiveScan-config"
+  type: "passiveScan-config"
+  parameters:
+    scanOnlyInScope: true
+    enableTags: false
+  rules: []
+# - name: "script"
+#   type: "script"
+#   parameters:
+#     action: "add"
+#     type: "httpsender"
+#     engine: "Oracle Nashorn"
+#     name: "httpsender.js"
+#     file: "/zap/wrk/scripts/httpsender.js"
+#     target: ""
+# - parameters:
+#     action: "add"
+#     type: "httpsender"
+#     engine: "Oracle Nashorn"
+#     name: "LogMessages.js"
+#     file: "/zap/wrk/LogMessages.js"
+#   name: "script"
+#   type: "script"
+# - name: "script"
+#   type: "script"
+#   parameters:
+#     action: "add"
+#     type: "selenium"
+#     engine: Oracle Nashorn"
+#     name: "selenium.js"
+#     file: "/zap/wrk/scripts/selenium.js"
+#     target: ""
+- parameters: 
+    user: "test"
+  name: "spider"
+  type: "spider"
+  # tests:
+  # - onFail: "error"
+  #   statistic: "automation.spider.urls.added"
+  #   site: ""
+  #   operator: ">="
+  #   value: 100
+  #   name: "At least 100 URLs found"
+  #   type: "stats"
+  # - onFail: "error"
+  #   statistic: "stats.auth.success"
+  #   site: "https://pp-services.signin.education.gov.uk"
+  #   operator: ">="
+  #   value: 1
+  #   name: "At least 1 successful login"
+  #   type: "stats"
+  # - onFail: "error"
+  #   statistic: "stats.auth.failure"
+  #   site: "https://pp-services.signin.education.gov.uk"
+  #   operator: "<="
+  #   value: 0
+  #   name: "No login failures"
+  #   type: "stats"
+  # - onFail: "error"
+  #   statistic: "stats.site.tokens.added"
+  #   site: ""
+  #   operator: ">="
+  #   value: 50
+  #   name: "At least 50 authentication tokens added"
+  #   type: "stats"
+- parameters:  {}
+  name: "spiderAjax"
+  type: "spiderAjax"
+  # tests:
+  # - onFail: "warn"
+  #   statistic: "spiderAjax.urls.added"
+  #   site: ""
+  #   operator: ">="
+  #   value: 1000
+  #   name: "At least 1000 URLs found"
+  #   type: "stats"
+  # - onFail: "warn"
+  #   statistic: "stats.auth.success"
+  #   site: "https://pp-services.signin.education.gov.uk"
+  #   operator: ">="
+  #   value: 1
+  #   name: "At least 1 successful login"
+  #   type: "stats"
+  # - onFail: "warn"
+  #   statistic: "stats.auth.failure"
+  #   site: "https://pp-services.signin.education.gov.uk"
+  #   operator: "<="
+  #   value: 0
+  #   name: "No login failures"
+  #   type: "stats"
+  # - onFail: "warn"
+  #   statistic: "stats.site.authtoken.present"
+  #   site: ""
+  #   operator: ">="
+  #   value: 300
+  #   name: "At least 300 authentication tokens present"
+  #   type: "stats"
+  # - onFail: "info"
+  #   statistic: "stats.site.authtoken.absent"
+  #   site: ""
+  #   operator: "<"
+  #   value: 500
+  #   name: "Less than 500 authentication tokens absent"
+  #   type: "stats"
+  # - onFail: "warn"
+  #   statistic: "stats.site.cookie.present"
+  #   site: ""
+  #   operator: ">="
+  #   value: 500
+  #   name: "At least 300 authentication cookies present"
+  #   type: "stats"
+  # - onFail: "info"
+  #   statistic: "stats.site.cookie.absent"
+  #   site: ""
+  #   operator: "<"
+  #   value: 500
+  #   name: "Less than 500 authentication cookies absent"
+  #   type: "stats"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
