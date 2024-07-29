@@ -16,11 +16,11 @@ val logger = LogManager.getLogger("external-script")
 
 
 fun getLoggedOutIndicator() : String {
-    return ".*<title>\s*DfE Sign-in\s*<\/title>.*"
+    return ".*DfE Sign-in.*"
 }
 
 fun getLoggedInIndicator() : String {
-    return ".*<title>\s*Access DfE services\s*<\/title>.*"
+    return ".*Access DfE services.*"
 }
 
 
