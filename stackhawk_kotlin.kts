@@ -15,15 +15,6 @@ import java.net.HttpCookie
 val logger = LogManager.getLogger("external-script")
 
 
-fun getLoggedOutIndicator() : String {
-    return ".*DfE Sign-in.*"
-}
-
-fun getLoggedInIndicator() : String {
-    return ".*Access DfE services.*"
-}
-
-
 // This function is called before a scan is started and when the loggedOutIndicator is matched indicating re-authentication is needed.
 fun authenticate(
     helper: AuthenticationHelper,
@@ -186,4 +177,12 @@ fun getCredentialsParamsNames(): Array<String> {
 
 fun getOptionalParamsNames(): Array<String> {
     return arrayOf("cookie_file")
+}
+
+fun getLoggedOutIndicator() : String {
+    return "DfE Sign-in"
+}
+
+fun getLoggedInIndicator() : String {
+    return "Access DfE services"
 }
