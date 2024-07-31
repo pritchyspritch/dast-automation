@@ -10,7 +10,7 @@ env:
     authentication:
       method: "script"
       parameters:
-        script: "/zap/wrk/stackhawk_kotlin.kts"
+        script: "/zap/wrk/kotlin_external.kts"
         scriptEngine: "kotlin"
         cookie_file: "cookies.txt"
         auth_script_file: "/zap/wrk/selenium_login.py"
