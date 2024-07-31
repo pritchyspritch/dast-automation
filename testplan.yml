@@ -37,12 +37,6 @@ env:
     progressToStdout: true
   vars: {}
 jobs:
-- name: "passiveScan-config"
-  type: "passiveScan-config"
-  parameters:
-    scanOnlyInScope: true
-    enableTags: false
-  rules: []
 - parameters:
     action: "add"
     type: "httpsender"
@@ -51,12 +45,3 @@ jobs:
     file: "/zap/wrk/LogMessages.js"
   name: "script"
   type: "script"
-- parameters: {}
-  name: "spider"
-  type: "spider"
-- parameters: {}
-  name: "spiderAjax"
-  type: "spiderAjax"
-- parameters: {}
-  name: "passiveScan-wait"
-  type: "passiveScan-wait"
