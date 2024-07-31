@@ -183,6 +183,10 @@ fun getLoggedOutIndicator() : String {
     return "DfE Sign-in"
 }
 
-fun getLoggedInIndicator() : String {
-    return "Access DfE services"
+// fun getLoggedInIndicator() : String {
+//     return "Access DfE services"
+// }
+
+fun getLoggedInIndicator(): String {
+    return "Sign Out"
 }
