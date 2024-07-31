@@ -103,7 +103,7 @@ fun authenticate(
     helper.sendAndReceive(msg)
 
     logger.info("Response Header ${msg.responseHeader}")
-    logger.info("Response Bodye ${msg.responseBody}")
+    logger.info("Response Body ${msg.responseBody}")
     return msg
 
 }
