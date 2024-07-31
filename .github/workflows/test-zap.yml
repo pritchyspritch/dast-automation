@@ -22,7 +22,7 @@ jobs:
       - name: ZAP Scan
         uses: pritchyspritch/action-af@v0.1.1
         with:
-          plan: 'testplan.yml'
+          plan: 'https://raw.githubusercontent.com/pritchyspritch/dast-automation/main/testplan.yml'
           cmd_options: '-addoninstall kotlin -loglevel debug'
           docker_env_vars: |
             $USER
