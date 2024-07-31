@@ -25,8 +25,8 @@ jobs:
           plan: 'testplan.yml'
           cmd_options: '-addoninstall kotlin -loglevel debug'
           docker_env_vars: |
-            USER
-            PASSWORD
+            $USER
+            $PASSWORD
         env:
           USER: ${{ secrets.USERNAME }}
           PASSWORD: ${{ secrets.PASSWORD }}

@@ -11,7 +11,7 @@ env:
       method: "script"
       parameters:
         script: "/zap/wrk/stackhawk_kotlin.kts"
-        scriptEngine: "kotlin"
+        scriptEngine: "KOTLIN"
         cookie_file: "cookies.txt"
         auth_script_file: "/zap/wrk/selenium_login.py"
         test_path: "https://pp-services.signin.education.gov.uk/my-services"
