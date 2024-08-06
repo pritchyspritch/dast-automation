@@ -4,8 +4,11 @@ import org.parosproxy.paros.network.HttpMessage
 import org.parosproxy.paros.network.HttpRequestHeader
 import org.zaproxy.zap.authentication.AuthenticationHelper
 import org.zaproxy.zap.authentication.GenericAuthenticationCredentials
+import org.apache.log4j.LogManager
 
 val PARAM_TARGET_URL = "https://pp-services.signin.education.gov.uk/"
+
+val logger = LogManager.getLogger("external-script")
 
 fun authenticate(
         helper: AuthenticationHelper,
@@ -15,11 +18,15 @@ fun authenticate(
     println("Kotlin auth template")
 
     println("TARGET_URL: ${paramsValues[PARAM_TARGET_URL]}")
+    logger.info("Kotlin auth template")
+    logger.info("TARGET_URL: ${paramsValues[PARAM_TARGET_URL]}")
     val msg = helper.prepareMessage()
     msg.requestHeader = HttpRequestHeader(HttpRequestHeader.GET, URI(paramsValues[PARAM_TARGET_URL], true),
             HttpHeader.HTTP11)
     println("msg: $msg ${msg.requestHeader.headers.size}")
+    logger.info("msg: $msg ${msg.requestHeader.headers.size}"))
     msg.requestHeader.headers.forEach { println(it) }
+    msg.requestHeader.headers.forEach { logger.info(it) }
     helper.sendAndReceive(msg)
     return msg
 }
