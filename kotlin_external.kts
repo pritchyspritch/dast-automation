@@ -166,6 +166,7 @@ fun addTokenToHeader(requestHeader: HttpRequestHeader, name : String, value : St
 }
 
 // The required parameter names for your script, your script will throw an error if these are not supplied in the script.parameters configuration.
+//  getRequiredParamsNames
 fun getRequiredParamsNames(): Array<String> {
     return arrayOf("test_path", "auth_script_file")
 }
@@ -174,12 +175,12 @@ fun getRequiredParamsNames(): Array<String> {
 fun getCredentialsParamsNames(): Array<String> {
     return arrayOf()
 }
-
-fun getOptionalParamsNames(): Array<String> {
+fun getOptionalParamsNames(): Array<String> { 
     return arrayOf("cookie_file")
 }
 
-fun getLoggedOutIndicator() : String {
+
+fun getLoggedOutIndicator() : String { 
     return "DfE Sign-in"
 }
 
@@ -187,6 +188,8 @@ fun getLoggedOutIndicator() : String {
 //     return "Access DfE services"
 // }
 
+
+//  getLoggedInIndicator
 fun getLoggedInIndicator(): String {
-    return "Sign Out"
+    return "Access DfE services"
 }

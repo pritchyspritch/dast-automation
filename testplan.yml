@@ -10,7 +10,8 @@ env:
     authentication:
       method: "script"
       parameters:
-        script: "/zap/wrk/kotlin_external.kts"
+        # script: "/zap/wrk/kotlin_external.kts"
+        script: "/zap/wrk/kotlin_template.kts"
         scriptEngine: "kotlin"
         cookie_file: "cookies.txt"
         auth_script_file: "/zap/wrk/selenium_login.py"
