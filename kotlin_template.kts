@@ -10,23 +10,25 @@ val PARAM_TARGET_URL = "https://pp-services.signin.education.gov.uk/"
 
 val logger = LogManager.getLogger("external-script")
 
+logger.debug("Kotlin auth template 1")
+
 fun authenticate(
         helper: AuthenticationHelper,
         paramsValues: Map<String, String>,
         credentials: GenericAuthenticationCredentials): HttpMessage {
 
-    println("Kotlin auth template")
+    println("Kotlin auth template 2")
 
     println("TARGET_URL: ${paramsValues[PARAM_TARGET_URL]}")
-    logger.info("Kotlin auth template")
-    logger.info("TARGET_URL: ${paramsValues[PARAM_TARGET_URL]}")
+    logger.debug("Kotlin auth template")
+    logger.debug("TARGET_URL: ${paramsValues[PARAM_TARGET_URL]}")
     val msg = helper.prepareMessage()
     msg.requestHeader = HttpRequestHeader(HttpRequestHeader.GET, URI(paramsValues[PARAM_TARGET_URL], true),
             HttpHeader.HTTP11)
     println("msg: $msg ${msg.requestHeader.headers.size}")
-    logger.info("msg: $msg ${msg.requestHeader.headers.size}")
+    logger.debug("msg: $msg ${msg.requestHeader.headers.size}")
     msg.requestHeader.headers.forEach { println(it) }
-    msg.requestHeader.headers.forEach { logger.info(it) }
+    msg.requestHeader.headers.forEach { logger.debug(it) }
     helper.sendAndReceive(msg)
     return msg
 }

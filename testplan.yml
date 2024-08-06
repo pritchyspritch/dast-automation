@@ -46,3 +46,12 @@ jobs:
     file: "/zap/wrk/LogMessages.js"
   name: "script"
   type: "script"
+- type: passiveScan-config           # Passive scan configuration
+  parameters:
+    maxAlertsPerRule: 10             # Int: Maximum number of alerts to raise per rule
+    scanOnlyInScope: true            # Bool: Only scan URLs in scope (recommended)    
+    enableTags: false                # Bool: Enable passive scan tags, default: false - enabling them can impact performance
+    disableAllRules: false           # Bool: If true then will disable all rules before applying the settings in the rules section
+- type: passiveScan-wait             # Passive scan wait for the passive scanner to finish
+  parameters:
+    maxDuration: 5  
