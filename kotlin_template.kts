@@ -24,7 +24,7 @@ fun authenticate(
     msg.requestHeader = HttpRequestHeader(HttpRequestHeader.GET, URI(paramsValues[PARAM_TARGET_URL], true),
             HttpHeader.HTTP11)
     println("msg: $msg ${msg.requestHeader.headers.size}")
-    logger.info("msg: $msg ${msg.requestHeader.headers.size}"))
+    logger.info("msg: $msg ${msg.requestHeader.headers.size}")
     msg.requestHeader.headers.forEach { println(it) }
     msg.requestHeader.headers.forEach { logger.info(it) }
     helper.sendAndReceive(msg)
